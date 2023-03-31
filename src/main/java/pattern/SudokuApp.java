@@ -1,4 +1,4 @@
-package antipattern;
+package pattern;
 
 
 //import pattern.*;
