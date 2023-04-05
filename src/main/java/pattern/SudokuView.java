@@ -1,24 +1,23 @@
 package pattern;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class SudokuView {
 
     private SudokuModel model;
-    private List<ViewComponent> components;
+    private SudokuCellView[][] cells;
 
     public SudokuView(SudokuModel model) {
         this.model = model;
+        this.cells = new SudokuCellView[model.getBoardSize()][model.getBoardSize()];
+        for (int i = 0; i < model.getBoardSize(); i++) {
+            for (int j = 0; j < model.getBoardSize(); j++) {
+                cells[i][j] = new SudokuCellView(i, j, model.getValueAt(i, j));
+            }
+        }
     }
 
     public void display() {
-        for (ViewComponent component : components) {
-            component.display();
-        }
-    }
-//TODO : displayOld() is not used anymore, remove it?
-    public void displayOld() {
         for (int row = 0; row < model.getBoardSize(); row++) {
             if (row % model.getBlockSize() == 0) {
                 System.out.println(" -----------------------");
@@ -27,23 +26,14 @@ public class SudokuView {
                 if (col % model.getBlockSize() == 0) {
                     System.out.print("| ");
                 }
-                int value = model.getValueAt(row, col);
-                if (value == 0) {
-                    System.out.print("  ");
-                } else {
-                    System.out.print(value + " ");
-                }
+                cells[row][col].display();
             }
             System.out.println("|");
         }
         System.out.println(" -----------------------");
     }
 
-    public void update(int row, int col, int value) {
-        System.out.println("Cell at row " + row + ", column " + col + " updated to " + value);
-        display();
-
-    }
+    //TODO : displayOld() is not used anymore, remove it?
 
     public void displayWelcomeMessage() {
         System.out.println("Welcome to Sudoku game!");
