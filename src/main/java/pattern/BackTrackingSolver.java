@@ -1,21 +1,19 @@
 package pattern;
 
-//import pattern.SudokuModel;
+public class BackTrackingSolver implements Solver {
 
-public class SudokuSolver {
-
-    public boolean solve(Sudoku sudoku) {
+    public boolean solve(SudokuModel sudoku) {
         return solveCell(0, 0, sudoku);
     }
 
-    private boolean solveCell(int row, int column, Sudoku sudoku) {
+    private boolean solveCell(int row, int column, SudokuModel sudoku) {
         // Si on a parcouru toutes les cellules, la grille est résolue
         if (row == sudoku.getBoardSize()) {
             return true;
         }
 
         // Calcul de la prochaine cellule à traiter
-        int nextRow = column == sudoku.getBoardSize()-1 ? row + 1 : row;
+        int nextRow = column == sudoku.getBoardSize() - 1 ? row + 1 : row;
         int nextColumn = (column + 1) % sudoku.getBoardSize();
 
         // Si la cellule actuelle est déjà remplie, passer à la suivante
@@ -43,3 +41,5 @@ public class SudokuSolver {
         return false;
     }
 }
+
+
