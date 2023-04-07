@@ -38,11 +38,11 @@ public class SudokuView {
 
 
     public int askOption() {
-        System.out.println("Please enter your option:");
         System.out.println("1. Set value");
         System.out.println("2. Undo");
         System.out.println("3. Solve");
         System.out.println("4. Exit");
+        System.out.println("Please enter your option:");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }

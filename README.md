@@ -45,9 +45,11 @@ Par une gestion via une collection de commandes (abstraites) disponibles, dont s
 #### Question 11:
 En déclarant une structure arborescente telle que le Composite soit un objet interface,comprennant une collection de cellules qui le compose.
 
-### UML MVC: 
+### Question 12 et UML MVC: 
 A partir de l'approche conceptuelle de mes réponses fournies précedemment aux implémentations des patrons adjacents au MVC,
 voici leur implémentation concrète:
+
+<img src="./UML/Final.jpg">
 
 
 
