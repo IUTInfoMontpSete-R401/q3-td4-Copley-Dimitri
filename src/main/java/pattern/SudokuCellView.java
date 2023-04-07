@@ -15,20 +15,20 @@ public class SudokuCellView implements SudokuObserver, ViewComponent {
     @Override
     public void update(int row, int col) {
         if (row == this.row && col == this.col) {
-            System.out.println("Cell {" + row+"," +col+ "} has been updated to " + m.getValueAt(row, col));
+            System.out.println("Cell {" + row + "," + col + "} has been updated to " + m.getValueAt(row, col));
         }
     }
 
     @Override
     public void display() {
-        if(m.getValueAt(row, col) == 0) {
+        if (m.getValueAt(row, col) == 0) {
             System.out.print("  ");
         } else {
-            System.out.print(m.getValueAt(row, col)+" ");
+            System.out.print(m.getValueAt(row, col) + " ");
         }
     }
 
     public ViewComponent[] getChildren() {
-        return null;
+        return new ViewComponent[]{this};
     }
 }
