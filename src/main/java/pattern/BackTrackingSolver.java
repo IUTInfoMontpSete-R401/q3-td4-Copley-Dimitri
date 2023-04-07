@@ -1,8 +1,10 @@
 package pattern;
 
 public class BackTrackingSolver implements Solver {
+    private SudokuController controller;
 
-    public boolean solve(SudokuModel sudoku) {
+    public boolean solve(SudokuModel sudoku, SudokuController controller) {
+        this.controller = controller;
         return solveCell(0, 0, sudoku);
     }
 
@@ -25,7 +27,8 @@ public class BackTrackingSolver implements Solver {
         for (int value = 1; value <= sudoku.getBoardSize(); value++) {
             if (sudoku.isValueValid(row, column, value)) {
                 // Assigner la valeur à la cellule
-                sudoku.setValueAt(row, column, value);
+                Command command = new SetValueCommand(new int[]{row, column}, value, sudoku);
+                controller.handleUserInput(command);
 
                 // Récursivement résoudre la grille à partir de la cellule suivante
                 if (solveCell(nextRow, nextColumn, sudoku)) {
@@ -33,7 +36,7 @@ public class BackTrackingSolver implements Solver {
                 }
 
                 // Si la résolution a échoué, retirer la valeur de la cellule
-                sudoku.setValueAt(row, column, 0);
+                command.undo();
             }
         }
 

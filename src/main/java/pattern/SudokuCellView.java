@@ -3,23 +3,32 @@ package pattern;
 public class SudokuCellView implements SudokuObserver, ViewComponent {
     private int row;
     private int col;
-    private int value;
+    private SudokuModel m;
 
-    public SudokuCellView(int row, int col, int value) {
+    public SudokuCellView(int row, int col, SudokuModel m) {
         this.row = row;
         this.col = col;
-        this.value = value;
+        this.m = m;
+        m.subscribe(this);
     }
 
     @Override
-    public void update(int row, int col, int value) {
+    public void update(int row, int col) {
         if (row == this.row && col == this.col) {
-            this.value = value;
+            System.out.println("Cell {" + row+"," +col+ "} has been updated to " + m.getValueAt(row, col));
         }
     }
 
     @Override
     public void display() {
-        System.out.println(value);
+        if(m.getValueAt(row, col) == 0) {
+            System.out.print("  ");
+        } else {
+            System.out.print(m.getValueAt(row, col)+" ");
+        }
+    }
+
+    public ViewComponent[] getChildren() {
+        return null;
     }
 }

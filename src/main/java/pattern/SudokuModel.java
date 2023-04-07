@@ -47,22 +47,26 @@ public class SudokuModel {
 
     public void setValueAt(int row, int col, int value) {
         board[row][col] = value;
-        update(row, col, value);
+        update(row, col);
     }
 
     public int getBoardSize() {
         return board.length;
     }
 
-    public void update(int row, int col, int value) {
+    public void update(int row, int col) {
         for (SudokuObserver subscriber : subscribers) {
-            subscriber.update(row, col, value);
+            subscriber.update(row, col);
         }
     }
 
     public int getBlockSize() {
 
         return (int) Math.sqrt(board[0].length);
+    }
+
+    public void subscribe(SudokuObserver observer) {
+        subscribers.add(observer);
     }
 
     /*

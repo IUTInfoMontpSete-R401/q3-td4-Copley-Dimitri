@@ -1,14 +1,14 @@
 package pattern;
 
-public class SetValueCommand implements Command{
+public class SetValueCommand implements Command {
     private int row;
     private int col;
     private int value;
     private SudokuModel model;
 
-    public SetValueCommand(int row, int col, int value, SudokuModel model) {
-        this.row = row;
-        this.col = col;
+    public SetValueCommand(int[] coords, int value, SudokuModel model) {
+        this.row = coords[0];
+        this.col = coords[1];
         this.value = value;
         this.model = model;
     }

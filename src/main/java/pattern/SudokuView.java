@@ -5,15 +5,18 @@ import java.util.Scanner;
 public class SudokuView {
 
     private SudokuModel model;
-    private SudokuCellView[][] cells;
+    private ViewComponent[] children;
+
 
     public SudokuView(SudokuModel model) {
         this.model = model;
-        this.cells = new SudokuCellView[model.getBoardSize()][model.getBoardSize()];
-        for (int i = 0; i < model.getBoardSize(); i++) {
-            for (int j = 0; j < model.getBoardSize(); j++) {
-                cells[i][j] = new SudokuCellView(i, j, model.getValueAt(i, j));
+        children = new ViewComponent[model.getBoardSize()];
+        for (int row = 0; row < model.getBoardSize(); row++) {
+            LineView line = new LineView(model.getBoardSize());
+            for (int col = 0; col < model.getBoardSize(); col++) {
+                line.setChild(col, new SudokuCellView(row, col, model));
             }
+            children[row] = line;
         }
     }
 
@@ -26,20 +29,32 @@ public class SudokuView {
                 if (col % model.getBlockSize() == 0) {
                     System.out.print("| ");
                 }
-                cells[row][col].display();
+                children[row].getChildren()[col].display();
             }
             System.out.println("|");
         }
         System.out.println(" -----------------------");
     }
 
-    //TODO : displayOld() is not used anymore, remove it?
+
+    public int askOption() {
+        System.out.println("Please enter your option:");
+        System.out.println("1. Set value");
+        System.out.println("2. Undo");
+        System.out.println("3. Solve");
+        System.out.println("4. Exit");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
 
     public void displayWelcomeMessage() {
         System.out.println("Welcome to Sudoku game!");
         System.out.println("Please enter the board size:");
     }
 
+    public SetValueCommand askInput() {
+        return new SetValueCommand(askUserForCoords(), askUserForValue(), model);
+    }
     /*
     Cette méthode utilise un objet Scanner pour lire les entrées de l'utilisateur à partir de la console.
     Elle demande d'abord le numéro de ligne et ensuite le numéro de colonne, en soustrayant 1 de chaque
